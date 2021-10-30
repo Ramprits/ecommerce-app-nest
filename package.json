@@ -9,7 +9,11 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nodemon",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormConfig.ts",
+    "db:drop": "yarn typeorm schema:drop",
+    "db:create": "yarn typeorm migration:generate -n",
+    "db:migrate": "yarn typeorm migration:run",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -24,9 +28,14 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.2",
+    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.14",
+    "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.2.38"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -67,5 +76,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "_moduleAliases": {
+    "@app": "./dist"
   }
 }
